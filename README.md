@@ -130,15 +130,15 @@ Desk clock against time.windows.com at 23:00:16 UTC: +73 ms. No resync.
 
 ## Tasks for stp, from this desk
 
-These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). The storm itself is still the later GO. This pre-run does not start it.
+These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). Scored at 23:20 UTC on 6 Oct, while the pre-run was still inside its window (armed through 09:02 UTC on 7 Oct). The storm itself is still the later GO. This pre-run does not start it, and this section is not the 10-hour total.
 
 1. **Dry run.** Done on the desk for the planned share. Four fixed processes held 734 tx/s, 97.9% of 750, over 3 minutes, with 0 rejects and 0 seconds at 0. The lower steps of 25, 100, 225 and 475 tx/s each hit the target on every second. The per-transaction logs for that run are on the desk. Matching those txids to n0 is the box's check, and that match is still open.
-2. **Enough tKAS.** Done for this desk. At 23:00 UTC the Build wallet had 3,612,867 tKAS and 15,944 coins of at least 2 tKAS (about 3.60 million tKAS in those coins). The public address list is [STP-KAS/groks-wallet](https://github.com/STP-KAS/groks-wallet).
-3. **Usage resets.** Not a desk measurement. Still open for the bots and for Build before the storm GO.
-4. **Box dry run and free disk.** The box's checklist. Not measured from this desk.
-5. **Share and plan lock.** The dry run held 750 tx/s at 4 processes, so the default 25% share still fits that gate. The plan is not locked. Lock stays with stp before T0.
-6. **Desk clock and desk miners.** Clock offset +73 ms at 23:00 UTC, under 100 ms. Desk miners during this pre-run: 0.
-7. **Final OK on the start time.** Not given. Earliest storm remains Fri 9 Oct 2026, 20:00 CEST, otherwise 13 Oct.
+2. **Enough tKAS.** OK for both wallets. [Grok Build](https://github.com/STP-KAS/groks-wallet#grok-build) ([TN10 page](https://tn10.kaspa.stream/addresses/kaspatest:qp4jge54eztxewf8r53rtjdvxakmatsu6tjd0nn9sjhgvzxknsfvjvmwurqhd)) and [Grok Bot](https://github.com/STP-KAS/groks-wallet#grok-bot) ([TN10 page](https://tn10.kaspa.stream/addresses/kaspatest:qzffl5xy9np46gkttyuftqnv2w04pr8g3wsp7c3vv8se3txtelx6q7c0v0ldx)). At 23:00 UTC the desk read the Build wallet at 3,612,867 tKAS and 15,944 coins of at least 2 tKAS. The Bot wallet is OK on stp's word. The box balance was not read from this desk.
+3. **Usage resets.** OK for the bots and for Build, per stp on 7 Oct 2026. This desk did not read the usage counters.
+4. **Box dry run and free disk.** Not done. The box's checklist. Not measured from this desk.
+5. **Share and plan lock.** The dry run held 734 tx/s at 4 processes, 97.9% of 750, so the default 25% share still fits that gate. The plan is not locked. Lock stays with stp before T0.
+6. **Desk clock and desk miners.** Start offset +73 ms at 23:00 UTC, under 100 ms. Desk miners during this pre-run: 0. The end offset waits until 09:02 UTC. The miner switch is the storm control step and has not been run.
+7. **Final OK on the start time.** Not given, and not a start-now. Earliest storm remains Fri 9 Oct 2026, 20:00 CEST, otherwise 13 Oct.
 
 ## Mainnet, the same night
 
