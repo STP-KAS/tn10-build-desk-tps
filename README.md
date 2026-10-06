@@ -82,3 +82,82 @@ At the low fee, six processes held 6,321 tx/s with zero rejects for 20 seconds, 
 ## What this is not
 
 This desk run is not the 9 or 13 Oct combo. The bot and Build stay separate until that test. After it, the joint note (what each side did, why the pair is the measurement, and how the two logs are matched on n0) belongs in the questions repo, not here.
+
+## Long holds, 6 Oct 2026 evening
+
+The 20-second and 45-second runs are the burst record. A hold has to keep submitting after the first depth of the pipe fills. These two runs are that test. Same signed one-input one-output self-transfers. One process per public node. Fees frozen at the start of each process. Desk miners: 0.
+
+### Ninety minutes at depth 8, 21:22–22:53 UTC
+
+Six processes, one per public node, chains 8 deep, in-flight cap 96, target 8,000 tx/s, fees 100 and 150 sompi/gram. The process was armed for 7,200 seconds. The logs stop at 22:53 UTC, about 90 minutes in, with no summary line.
+
+| Node | Seconds | Submit-OK | Seen accepted | Rejects | Mean submit | Seconds at 0 |
+|---|---:|---:|---:|---:|---:|---:|
+| vector-10 | 5,398 | 328,646 | 316,542 | 0 | 61 tx/s | 4,254 |
+| proton-10 | 5,398 | 329,615 | 316,199 | 0 | 61 tx/s | 4,111 |
+| electron-10 | 5,398 | 349,645 | 335,445 | 0 | 65 tx/s | 4,139 |
+| muon-10 | 5,407 | 1,242,943 | 1,210,943 | 6,996 | 230 tx/s | 2,726 |
+| quark-10 | 5,398 | 352,104 | 337,784 | 5,393 | 65 tx/s | 4,130 |
+| neutrino-10 | 5,398 | 333,140 | 319,596 | 0 | 62 tx/s | 4,172 |
+| All six | | 2,936,093 | 2,836,509 | 12,389 | | |
+
+Each of the smaller nodes filled its pipe in the first seconds (about 1,500–1,800 lanes, depth 8) and then sat at zero for about four fifths of the run. Muon-10 had 4,000 lanes, the cap in that build, and was the only node that kept moving. The combined mean is about 540 tx/s. That is a long run with a low duty cycle. It is not a high-rate hold.
+
+### Depth 2, in-flight 48, from 23:12 UTC
+
+The next shape keeps the chain two deep, caps in-flight submits at 48 per process, and uses every mature coin on that node. A stampeded first second had been filling depth and then the virtual-chain feed on that socket stopped freeing lanes, so submit stayed at zero. Slowing the fill left the feed up: each of these five processes was still receiving virtual-chain events (the payload includes `acceptedTransactionIds`), about 35 events per second over the sample.
+
+Muon-10 from the depth-8 run was left up. The other five were started again at 23:12:21 UTC. Armed window: through 09:02 UTC on 7 Oct (11:02 CEST). If one process exits before then, that process is started again. This section is the opening sample, not the 10-hour total.
+
+Last 20 seconds ending 23:13:29 UTC. Rejects in this window: 0.
+
+| Node | Fee, sompi/gram | Lanes | Mean submit | Seen accepted |
+|---|---|---:|---:|---:|
+| vector-10 | 136 and 204 | 2,130 | 669 tx/s | 661 tx/s |
+| proton-10 | 100 and 150 | 2,094 | 315 tx/s | 314 tx/s |
+| electron-10 | 100 and 150 | 2,275 | 331 tx/s | 329 tx/s |
+| quark-10 | 100 and 150 | 2,184 | 327 tx/s | 328 tx/s |
+| neutrino-10 | 100 and 150 | 2,070 | 313 tx/s | 316 tx/s |
+| muon-10, still the depth-8 process | 100 and 150 | 4,497 live | 440 tx/s | 395 tx/s |
+
+Combined submit in that window is about 2,400 tx/s, and seen-accepted is within a few percent of submit on each of the depth-2 nodes. A signed one-input one-output is about 1,624 grams, so a full 500,000-gram block at 10 blocks per second holds about 3,080 of them. This window is in that range. It is the first sample where submit and seen-accepted stayed together after the pipe filled.
+
+The ordered stream, 4 tx/s at 100 and 150 sompi/gram on proton-10, was submitting in the same window with 0 rejects. Its 1× half averaged 2 tx/s over those 20 seconds.
+
+At 23:13 UTC the six public mempools were about 16,000 to 18,000. `https://api-tn10.kaspa.org/info/health` was HTTP 200, database synced, accepted-tx lag 3 seconds, blue-score gap 31. The indexer did not freeze in this opening minute.
+
+Desk clock against time.windows.com at 23:00:16 UTC: +73 ms. No resync.
+
+## Tasks for stp, from this desk
+
+These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). The storm itself is still the later GO. This pre-run does not start it.
+
+1. **Dry run.** Done on the desk for the planned share. Four fixed processes held 734 tx/s, 97.9% of 750, over 3 minutes, with 0 rejects and 0 seconds at 0. The lower steps of 25, 100, 225 and 475 tx/s each hit the target on every second. The per-transaction logs for that run are on the desk. Matching those txids to n0 is the box's check, and that match is still open.
+2. **Enough tKAS.** Done for this desk. At 23:00 UTC the Build wallet had 3,612,867 tKAS and 15,944 coins of at least 2 tKAS (about 3.60 million tKAS in those coins). The public address list is [STP-KAS/groks-wallet](https://github.com/STP-KAS/groks-wallet).
+3. **Usage resets.** Not a desk measurement. Still open for the bots and for Build before the storm GO.
+4. **Box dry run and free disk.** The box's checklist. Not measured from this desk.
+5. **Share and plan lock.** The dry run held 750 tx/s at 4 processes, so the default 25% share still fits that gate. The plan is not locked. Lock stays with stp before T0.
+6. **Desk clock and desk miners.** Clock offset +73 ms at 23:00 UTC, under 100 ms. Desk miners during this pre-run: 0.
+7. **Final OK on the start time.** Not given. Earliest storm remains Fri 9 Oct 2026, 20:00 CEST, otherwise 13 Oct.
+
+## Mainnet, the same night
+
+Read because the desk was asked to watch mainnet congestion and the covenant hour on Kaspa.stream. Deliberate load stayed on TN10.
+
+Mainnet was quiet. At about 00:41 CEST on 7 Oct the rendered [kaspa.stream](https://kaspa.stream/) homepage showed TPS 11.1 (1h average 10.4), BPS 10.6 (1h average 9.6), mempool 1, hashrate 300.5 PH/s, 29,412 transactions in the last hour, and 810 active addresses in the last hour. A direct `GET https://api.kaspa.org/info/fee-estimate` in the same hour returned 100 sompi/gram in every bucket. `GET https://api.kaspa.org/info/health` was synced, accepted-tx lag 3 seconds. That is not a congested hour.
+
+The same homepage's last-hour covenant board:
+
+| Label on the page | Last hour |
+|---|---:|
+| Covenants | 44 |
+| Igra L2 | 1,498 |
+| Kasplex L2 | 28 |
+| Kasplay | 133 |
+| KRC-721 | 79 |
+| dotk | 38 |
+| KaChat | 16 |
+| Kasia | 2 |
+| KRC-20 | 0 |
+
+KNS was not a row on that board in this render. The page is the source. The HTML shell does not contain these figures. They are the rendered counters. No transaction ids from that page are copied here.
