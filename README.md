@@ -128,6 +128,42 @@ At 23:13 UTC the six public mempools were about 16,000 to 18,000. `https://api-t
 
 Desk clock against time.windows.com at 23:00:16 UTC: +73 ms. No resync.
 
+This leg was stopped at 23:51 UTC. The totals are in the next section.
+
+### Depth-2 leg, closed at 23:51 UTC
+
+The five depth-2 processes ran from 23:12:22 to 23:51:44 UTC. Muon-10 was the older process, from 23:08:03 to the same stop. Seen-accepted stayed with submit. The desk CPU was about 5% because every lane sat at depth 2: the signers were waiting on inclusion, not on the CPU.
+
+| Node | Seconds | Submit | Seen accepted | Rejects | Mean submit | Mean accepted |
+|---|---:|---:|---:|---:|---:|---:|
+| vector-10 | 2,346 | 1,359,208 | 1,356,531 | 6,029 | 579 tx/s | 578 tx/s |
+| proton-10 | 2,345 | 618,661 | 615,239 | 2,704 | 264 tx/s | 262 tx/s |
+| electron-10 | 2,345 | 660,831 | 657,101 | 2,976 | 282 tx/s | 280 tx/s |
+| quark-10 | 2,345 | 643,439 | 639,841 | 2,976 | 274 tx/s | 273 tx/s |
+| neutrino-10 | 2,345 | 617,138 | 613,685 | 2,640 | 263 tx/s | 262 tx/s |
+| muon-10 | 2,603 | 1,218,343 | 1,213,183 | 18,120 | 468 tx/s | 466 tx/s |
+
+The closing 3 minutes, 23:44 to 23:47 UTC, were the held rate: about 2,050 tx/s submit and the same seen-accepted, with 0 rejects. The rejects in the table are from earlier in the leg. Over those 3 minutes the pipes were full (depth equal to two hops on every live lane) and each signer used about 10–20% of one core.
+
+The normal fee estimate on vector-10 had moved from 100 at 23:08 to about 186 by 23:47, with the priority bucket near 480, while these signers were still frozen at 100 and 150 (vector-10 at 136 and 204). Mempools were about 18,000. Network accepts on vector-10's virtual chain averaged about 4,270 per second over the two minutes ending 23:47, so a large part of each block was not ours. That is why the leg was stopped. It was a restart, not a stall.
+
+### Two signers per node, fee 200 and 300, from 23:53 UTC
+
+Same depth 2, fee cap still 600. Each node's coins are split across two signers, 12 signers plus the ordered stream. In-flight cap 64 on each signer. Fee frozen at the arm: 200 and 300 sompi/gram. Armed at 23:53:26 UTC, through the same 09:02 UTC deadline. A signer that exits is started again on its own coins. This leg is left running while it keeps including.
+
+Last 20 seconds ending 23:57:25 UTC, with mempools already back near 21,000–24,000. Rejects in this window: 0. The normal estimate was 194 and the priority bucket was 876, so the 200 and 300 tiers sit on either side of normal.
+
+| Node | Lanes | Mean submit | Seen accepted |
+|---|---:|---:|---:|
+| vector-10 | 1,874 | 370 tx/s | 371 tx/s |
+| proton-10 | 1,784 | 393 tx/s | 395 tx/s |
+| electron-10 | 1,852 | 426 tx/s | 428 tx/s |
+| quark-10 | 1,823 | 392 tx/s | 391 tx/s |
+| neutrino-10 | 1,796 | 381 tx/s | 383 tx/s |
+| muon-10 | 3,512 | 453 tx/s | 482 tx/s |
+
+Combined submit is about 2,420 tx/s and seen-accepted is about 2,450 tx/s. The first minute of this leg was about 2,530 submit and 2,500 seen-accepted, also with 0 rejects. Against the previous leg's closing 2,050 tx/s, the gain is about 400 tx/s, and it is on the five slower nodes. Vector-10 came down. The pipes are full again. The twelve signers together used about one core, and the machine load was still about 5%. More signing has no empty lane to fill. This is not the 10-hour total.
+
 ## Tasks for stp, from this desk
 
 These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). Scored at 23:20 UTC on 6 Oct, while the pre-run was still inside its window (armed through 09:02 UTC on 7 Oct). The storm itself is still the later GO. This pre-run does not start it, and this section is not the 10-hour total.
