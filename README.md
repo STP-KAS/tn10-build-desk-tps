@@ -104,6 +104,18 @@ The 20-second and 45-second runs above are the burst record. A hold has to keep 
 | Watcher muon blip | 2026-10-06T23:51:58.316Z | 2026-10-06T23:52:27.501Z | 29.2 s | 7,936 submits, 5,811 seen accepted. Stopped with the others. |
 | Two signers, fee 200 and 300 | 2026-10-06T23:53:27.326Z | 2026-10-07T05:54:53.185Z | 6 h 1 m 26 s | **2,210 tx/s submit, 2,207 tx/s seen accepted.** |
 
+### Fee 400 and the desk node, still open
+
+A 400/600 hold started at 2026-10-07T06:38:59Z and is still running until 2026-10-07T16:38:59Z. Depth 2. This is not a finished 10-hour total.
+
+| Slice | First log | Last log | What it did |
+|---|---|---|---|
+| Public signers, before the desk node | 2026-10-07T07:20:00Z | 2026-10-07T07:58:00Z | **2,159 tx/s submit, 2,158 tx/s seen accepted.** Under the six-hour 2,207. One signer had exited at 07:32:20Z and was not restarted. |
+| Desk node, four signers | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | **1,538 tx/s submit and the same seen accepted**, 0 rejects, lanes two deep. |
+| Public feeds after that minute | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | Seen accepted fell to 0. Submit dripped at about 430 tx/s. Those two numbers are not added together. |
+
+At 2026-10-07T08:07Z the desk node recorded about 305 transactions per block and compute mass about 498,000 of 500,000. That is the inclusion ceiling for this 1,624-gram transaction, about 3,050 tx/s. The six public hostnames were three machines that morning. The 9 or 13 Oct long hold keeps fee 200 and 300, uses two signers per physical machine, and adds the synced desk node. The plan note is in the questions repo.
+
 ### Depth 8, 2026-10-06T21:22:15.436Z to 2026-10-06T22:53:03.590Z
 
 Six processes, one per public node, chains 8 deep, in-flight cap 96, target 8,000 tx/s, fees 100 and 150 sompi/gram. Armed for 7,200 seconds. The logs stop at 22:53:03.590Z. No summary line.
