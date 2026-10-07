@@ -164,6 +164,10 @@ Last 20 seconds ending 23:57:25 UTC, with mempools already back near 21,000–24
 
 Combined submit is about 2,420 tx/s and seen-accepted is about 2,450 tx/s. The first minute of this leg was about 2,530 submit and 2,500 seen-accepted, also with 0 rejects. Against the previous leg's closing 2,050 tx/s, the gain is about 400 tx/s, and it is on the five slower nodes. Vector-10 came down. The pipes are full again. The twelve signers together used about one core, and the machine load was still about 5%. More signing has no empty lane to fill. This is not the 10-hour total.
 
+## Saved for the 9 Oct test
+
+The shape that held in this pre-run is written for the real test in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300. The fee cap stays 600. That note does not start the storm.
+
 ## Tasks for stp, from this desk
 
 These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). Scored at 23:20 UTC on 6 Oct, while the pre-run was still inside its window (armed through 09:02 UTC on 7 Oct). The storm itself is still the later GO. This pre-run does not start it, and this section is not the 10-hour total.
