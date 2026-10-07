@@ -83,101 +83,108 @@ At the low fee, six processes held 6,321 tx/s with zero rejects for 20 seconds, 
 
 This desk run is not the 9 or 13 Oct combo. The bot and Build stay separate until that test. After it, the joint note (what each side did, why the pair is the measurement, and how the two logs are matched on n0) belongs in the questions repo, not here.
 
-## Long holds, 6 Oct 2026 evening
+## Long holds, 6-7 Oct 2026
 
-The 20-second and 45-second runs are the burst record. A hold has to keep submitting after the first depth of the pipe fills. These two runs are that test. Same signed one-input one-output self-transfers. One process per public node. Fees frozen at the start of each process. Desk miners: 0.
+The 20-second and 45-second runs above are the burst record. A hold has to keep submitting after the pipe fills. Every run below has the first and last per-second log line in UTC. Rates are submits, or seen accepts, divided by that wall time. Same signed one-input one-output. Desk miners: 0. The fee cap stayed 600. Stopped on request at 2026-10-07T05:54:55Z, before the 09:02 UTC deadline.
 
-### Ninety minutes at depth 8, 21:22–22:53 UTC
+| Run | First log | Last log | Wall | What it did |
+|---|---|---|---|---|
+| Depth 8, six nodes | 2026-10-06T21:22:15.436Z | 2026-10-06T22:53:03.590Z | 1 h 30 m 48 s | 539 tx/s submit, 521 tx/s seen accepted. Most seconds were zero. |
+| Shell start A | 2026-10-06T23:02:31.904Z | 2026-10-06T23:02:31.946Z | under 1 s | 17,454 submits, 0 accepts. The processes died with the shell. |
+| Shell start B | 2026-10-06T23:05:56.265Z | 2026-10-06T23:05:57.269Z | 1.0 s | 14,771 submits, 987 accepts, 0 rejects. Same shell death. |
+| Depth 2, feed stuck | 2026-10-06T23:08:02.667Z | 2026-10-06T23:11:51.851Z | 3 m 49 s | Five nodes, one burst second, then accept 0. |
+| Muon-10, older process | 2026-10-06T23:08:03.706Z | 2026-10-06T23:51:44.209Z | 43 m 41 s | 465 tx/s submit, 463 tx/s seen accepted. |
+| Depth 2, five nodes | 2026-10-06T23:12:22.136Z | 2026-10-06T23:52:27.579Z | 40 m 5 s | 1,655 tx/s submit, 1,641 tx/s seen accepted. |
+| Watcher muon blip | 2026-10-06T23:51:58.316Z | 2026-10-06T23:52:27.501Z | 29.2 s | 7,936 submits, 5,811 seen accepted. Stopped with the others. |
+| Two signers, fee 200 and 300 | 2026-10-06T23:53:27.326Z | 2026-10-07T05:54:53.185Z | 6 h 1 m 26 s | **2,210 tx/s submit, 2,207 tx/s seen accepted.** |
 
-Six processes, one per public node, chains 8 deep, in-flight cap 96, target 8,000 tx/s, fees 100 and 150 sompi/gram. The process was armed for 7,200 seconds. The logs stop at 22:53 UTC, about 90 minutes in, with no summary line.
+### Depth 8, 2026-10-06T21:22:15.436Z to 2026-10-06T22:53:03.590Z
 
-| Node | Seconds | Submit-OK | Seen accepted | Rejects | Mean submit | Seconds at 0 |
+Six processes, one per public node, chains 8 deep, in-flight cap 96, target 8,000 tx/s, fees 100 and 150 sompi/gram. Armed for 7,200 seconds. The logs stop at 22:53:03.590Z. No summary line.
+
+| Node | Lines | Submit-OK | Seen accepted | Rejects | Seconds at 0 | Submit tx/s |
 |---|---:|---:|---:|---:|---:|---:|
-| vector-10 | 5,398 | 328,646 | 316,542 | 0 | 61 tx/s | 4,254 |
-| proton-10 | 5,398 | 329,615 | 316,199 | 0 | 61 tx/s | 4,111 |
-| electron-10 | 5,398 | 349,645 | 335,445 | 0 | 65 tx/s | 4,139 |
-| muon-10 | 5,407 | 1,242,943 | 1,210,943 | 6,996 | 230 tx/s | 2,726 |
-| quark-10 | 5,398 | 352,104 | 337,784 | 5,393 | 65 tx/s | 4,130 |
-| neutrino-10 | 5,398 | 333,140 | 319,596 | 0 | 62 tx/s | 4,172 |
-| All six | | 2,936,093 | 2,836,509 | 12,389 | | |
+| vector-10 | 5,398 | 328,646 | 316,542 | 0 | 4,254 | 60 |
+| proton-10 | 5,398 | 329,615 | 316,199 | 0 | 4,111 | 61 |
+| electron-10 | 5,398 | 349,645 | 335,445 | 0 | 4,139 | 64 |
+| muon-10 | 5,407 | 1,242,943 | 1,210,943 | 6,996 | 2,726 | 228 |
+| quark-10 | 5,398 | 352,104 | 337,784 | 5,393 | 4,130 | 65 |
+| neutrino-10 | 5,398 | 333,140 | 319,596 | 0 | 4,172 | 61 |
+| All six | | 2,936,093 | 2,836,509 | 12,389 | | 539 |
 
-Each of the smaller nodes filled its pipe in the first seconds (about 1,500–1,800 lanes, depth 8) and then sat at zero for about four fifths of the run. Muon-10 had 4,000 lanes, the cap in that build, and was the only node that kept moving. The combined mean is about 540 tx/s. That is a long run with a low duty cycle. It is not a high-rate hold.
+The smaller nodes filled about 1,500–1,800 lanes in the first seconds and then sat at zero for about four fifths of the run. Muon-10 had 4,000 lanes, the cap in that build, and was the only node that kept moving. Seen accepted over the wall was 521 tx/s. A long run with a low duty cycle.
 
-### Depth 2, in-flight 48, from 23:12 UTC
+### Two starts that died with the shell
 
-The next shape keeps the chain two deep, caps in-flight submits at 48 per process, and uses every mature coin on that node. A stampeded first second had been filling depth and then the virtual-chain feed on that socket stopped freeing lanes, so submit stayed at zero. Slowing the fill left the feed up: each of these five processes was still receiving virtual-chain events (the payload includes `acceptedTransactionIds`), about 35 events per second over the sample.
+2026-10-06T23:02:31.904Z to 2026-10-06T23:02:31.946Z. Five lane processes and the ordered stream. One second. 17,454 submits, 0 accepts. The ordered stream's first line is 23:02:30.869Z and its last is 23:02:31.832Z.
 
-Muon-10 from the depth-8 run was left up. The other five were started again at 23:12:21 UTC. Armed window: through 09:02 UTC on 7 Oct (11:02 CEST). If one process exits before then, that process is started again. This section is the opening sample, not the 10-hour total.
+2026-10-06T23:05:56.265Z to 2026-10-06T23:05:57.269Z. Same five nodes. 14,771 submits, 987 accepts, 0 rejects. The ordered stream is 23:05:55.533Z to 23:05:56.501Z.
 
-Last 20 seconds ending 23:13:29 UTC. Rejects in this window: 0.
+A process started inside the short-lived shell died when that shell's job closed, including a detached Node child. Later parents were created with `Win32_Process.Create` and left running. Those stayed up.
 
-| Node | Fee, sompi/gram | Lanes | Mean submit | Seen accepted |
-|---|---|---:|---:|---:|
-| vector-10 | 136 and 204 | 2,130 | 669 tx/s | 661 tx/s |
-| proton-10 | 100 and 150 | 2,094 | 315 tx/s | 314 tx/s |
-| electron-10 | 100 and 150 | 2,275 | 331 tx/s | 329 tx/s |
-| quark-10 | 100 and 150 | 2,184 | 327 tx/s | 328 tx/s |
-| neutrino-10 | 100 and 150 | 2,070 | 313 tx/s | 316 tx/s |
-| muon-10, still the depth-8 process | 100 and 150 | 4,497 live | 440 tx/s | 395 tx/s |
+### Depth 2, feed stuck, 2026-10-06T23:08:02.667Z to 2026-10-06T23:11:51.851Z
 
-Combined submit in that window is about 2,400 tx/s, and seen-accepted is within a few percent of submit on each of the depth-2 nodes. A signed one-input one-output is about 1,624 grams, so a full 500,000-gram block at 10 blocks per second holds about 3,080 of them. This window is in that range. It is the first sample where submit and seen-accepted stayed together after the pipe filled.
+Five nodes, depth 2, in-flight 48. Each logged one burst second (1,237 to 3,502 submits) and then 227 seconds at 0. Seen accepted: 0. Vector-10 also logged 44,520 rejects. The ordered stream, 23:08:01.643Z to 23:11:51.911Z, submitted 4 and accepted 0, with 45,158 rejects.
 
-The ordered stream, 4 tx/s at 100 and 150 sompi/gram on proton-10, was submitting in the same window with 0 rejects. Its 1× half averaged 2 tx/s over those 20 seconds.
+Muon-10 did not stick. Its older process, in-flight 160, ran 2026-10-06T23:08:03.706Z to 2026-10-06T23:51:44.209Z. Wall 2,620.5 s. Submit 1,218,343 (465 tx/s). Seen accepted 1,213,183 (463 tx/s). Rejects 18,120. Eight seconds at 0.
 
-At 23:13 UTC the six public mempools were about 16,000 to 18,000. `https://api-tn10.kaspa.org/info/health` was HTTP 200, database synced, accepted-tx lag 3 seconds, blue-score gap 31. The indexer did not freeze in this opening minute.
+### Depth 2, five nodes, 2026-10-06T23:12:22.136Z to 2026-10-06T23:52:27.579Z
 
-Desk clock against time.windows.com at 23:00:16 UTC: +73 ms. No resync.
+Depth 2, in-flight 48, one process per node, fees frozen at the arm. Vector-10 was 136 and 204 sompi/gram. The other four were 100 and 150. The virtual-chain feed stayed up. The last half minute of these files is a watcher restart after the 23:51:44Z stop; it was stopped again at 23:52:27Z. The totals below are the whole file.
 
-This leg was stopped at 23:51 UTC. The totals are in the next section.
+| Node | Submit | Seen accepted | Rejects | Submit tx/s | Accepted tx/s |
+|---|---:|---:|---:|---:|---:|
+| vector-10 | 1,380,182 | 1,373,941 | 7,813 | 574 | 571 |
+| proton-10 | 633,355 | 626,709 | 4,088 | 263 | 261 |
+| electron-10 | 677,292 | 669,978 | 4,904 | 282 | 279 |
+| quark-10 | 658,497 | 651,545 | 4,768 | 274 | 271 |
+| neutrino-10 | 631,680 | 625,015 | 4,376 | 263 | 260 |
+| Five nodes | 3,981,006 | 3,947,188 | 25,949 | 1,655 | 1,641 |
 
-### Depth-2 leg, closed at 23:51 UTC
+Plus the muon process above, the overlap held about 2,100 tx/s. The closing minutes before the stop were about 2,050 tx/s with 0 rejects, and every lane was already two deep. Desk CPU was about 5%.
 
-The five depth-2 processes ran from 23:12:22 to 23:51:44 UTC. Muon-10 was the older process, from 23:08:03 to the same stop. Seen-accepted stayed with submit. The desk CPU was about 5% because every lane sat at depth 2: the signers were waiting on inclusion, not on the CPU.
+The ordered stream on proton-10, 2026-10-06T23:12:21.107Z to 2026-10-06T23:52:26.521Z, submitted 9,501 (3.95 tx/s) against a target of 4.
 
-| Node | Seconds | Submit | Seen accepted | Rejects | Mean submit | Mean accepted |
-|---|---:|---:|---:|---:|---:|---:|
-| vector-10 | 2,346 | 1,359,208 | 1,356,531 | 6,029 | 579 tx/s | 578 tx/s |
-| proton-10 | 2,345 | 618,661 | 615,239 | 2,704 | 264 tx/s | 262 tx/s |
-| electron-10 | 2,345 | 660,831 | 657,101 | 2,976 | 282 tx/s | 280 tx/s |
-| quark-10 | 2,345 | 643,439 | 639,841 | 2,976 | 274 tx/s | 273 tx/s |
-| neutrino-10 | 2,345 | 617,138 | 613,685 | 2,640 | 263 tx/s | 262 tx/s |
-| muon-10 | 2,603 | 1,218,343 | 1,213,183 | 18,120 | 468 tx/s | 466 tx/s |
+At 23:13 UTC the public mempools were about 16,000 to 18,000. `https://api-tn10.kaspa.org/info/health` was HTTP 200, synced, accepted-tx lag 3 seconds. The indexer did not freeze in that minute. By 23:47 the normal fee quote on vector-10 was about 186, while these signers were still frozen at 100 and 150.
 
-The closing 3 minutes, 23:44 to 23:47 UTC, were the held rate: about 2,050 tx/s submit and the same seen-accepted, with 0 rejects. The rejects in the table are from earlier in the leg. Over those 3 minutes the pipes were full (depth equal to two hops on every live lane) and each signer used about 10–20% of one core.
+Desk clock against time.windows.com at 2026-10-06T23:00:16Z: +73 ms.
 
-The normal fee estimate on vector-10 had moved from 100 at 23:08 to about 186 by 23:47, with the priority bucket near 480, while these signers were still frozen at 100 and 150 (vector-10 at 136 and 204). Mempools were about 18,000. Network accepts on vector-10's virtual chain averaged about 4,270 per second over the two minutes ending 23:47, so a large part of each block was not ours. That is why the leg was stopped. It was a restart, not a stall.
+### Two signers, 2026-10-06T23:53:27.326Z to 2026-10-07T05:54:53.185Z
 
-### Two signers per node, fee 200 and 300, from 23:53 UTC
+Twelve lane signers, two per public node, each with its own half of that node's coins. Depth 2. In-flight 64. Fee frozen at 200 and 300 sompi/gram. Cap 600. Stopped on request at 2026-10-07T05:54:55Z. Wall 21,685.9 s, which is 6 h 1 m 26 s.
 
-Same depth 2, fee cap still 600. Each node's coins are split across two signers, 12 signers plus the ordered stream. In-flight cap 64 on each signer. Fee frozen at the arm: 200 and 300 sompi/gram. Armed at 23:53:26 UTC, through the same 09:02 UTC deadline. A signer that exits is started again on its own coins. This leg is left running while it keeps including.
+| Node | Submit | Seen accepted | Rejects | Submit tx/s | Accepted tx/s |
+|---|---:|---:|---:|---:|---:|
+| vector-10 | 11,896,821 | 11,893,161 | 321 | 549 | 548 |
+| proton-10 | 6,935,035 | 6,933,161 | 7,638 | 320 | 320 |
+| electron-10 | 7,088,908 | 7,087,002 | 7,883 | 327 | 327 |
+| quark-10 | 7,113,789 | 7,111,871 | 7,685 | 328 | 328 |
+| neutrino-10 | 6,742,978 | 6,698,439 | 7,763 | 311 | 309 |
+| muon-10 | 8,145,325 | 8,140,351 | 4,349 | 376 | 375 |
+| Twelve signers | 47,922,856 | 47,863,985 | 35,639 | 2,210 | 2,207 |
 
-Last 20 seconds ending 23:57:25 UTC, with mempools already back near 21,000–24,000. Rejects in this window: 0. The normal estimate was 194 and the priority bucket was 876, so the 200 and 300 tiers sit on either side of normal.
+Seen accepted stayed with submit for the whole six hours. Rejects are 0.07% of submits. Neutrino-10's second signer had 1,436 seconds at 0. The other signers had 30 to 108 such seconds. The first minute was higher, about 2,530 submit and 2,500 seen accepted, and the rate then settled at the table. A signed one-input one-output is about 1,624 grams, so about 3,080 of them fill a 500,000-gram block at 10 blocks per second. This hold is under that ceiling.
 
-| Node | Lanes | Mean submit | Seen accepted |
-|---|---:|---:|---:|
-| vector-10 | 1,874 | 370 tx/s | 371 tx/s |
-| proton-10 | 1,784 | 393 tx/s | 395 tx/s |
-| electron-10 | 1,852 | 426 tx/s | 428 tx/s |
-| quark-10 | 1,823 | 392 tx/s | 391 tx/s |
-| neutrino-10 | 1,796 | 381 tx/s | 383 tx/s |
-| muon-10 | 3,512 | 453 tx/s | 482 tx/s |
+The twelve signers used about one core. The machine stayed near 5% CPU, with the pipes full. More signers had no empty lane.
 
-Combined submit is about 2,420 tx/s and seen-accepted is about 2,450 tx/s. The first minute of this leg was about 2,530 submit and 2,500 seen-accepted, also with 0 rejects. Against the previous leg's closing 2,050 tx/s, the gain is about 400 tx/s, and it is on the five slower nodes. Vector-10 came down. The pipes are full again. The twelve signers together used about one core, and the machine load was still about 5%. More signing has no empty lane to fill. This is not the 10-hour total.
+The ordered stream, 2026-10-06T23:53:26.324Z to 2026-10-07T05:54:52.833Z, submitted 85,916 (3.96 tx/s). Its own seen-accept counter was 8,938, and it logged 28,620 rejects. The lane result above does not depend on that counter.
+
+At 2026-10-07T05:55:18Z the desk clock was 407 ms ahead of the Date header from `https://www.microsoft.com`. That header is whole seconds, so the offset is inside one second.
 
 ## Saved for the 9 Oct test
 
-The shape that held in this pre-run is written for the real test in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300. The fee cap stays 600. That note does not start the storm.
+The shape that held is in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). The test-day steps are in [plan/TESTDAY.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/TESTDAY.md). Starting that prompt on test day is the run. Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300. The fee cap stays 600. That note does not start the storm.
 
 ## Tasks for stp, from this desk
 
-These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). Scored at 23:20 UTC on 6 Oct, while the pre-run was still inside its window (armed through 09:02 UTC on 7 Oct). The storm itself is still the later GO. This pre-run does not start it, and this section is not the 10-hour total.
+These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions#tasks-for-stp-before-the-storm). Scored at the stop, 2026-10-07T05:55:18Z. The storm itself is still the later GO. This pre-run does not start it.
 
 1. **Dry run.** Done on the desk for the planned share. Four fixed processes held 734 tx/s, 97.9% of 750, over 3 minutes, with 0 rejects and 0 seconds at 0. The lower steps of 25, 100, 225 and 475 tx/s each hit the target on every second. The per-transaction logs for that run are on the desk. Matching those txids to n0 is the box's check, and that match is still open.
 2. **Enough tKAS.** OK for both wallets. [Grok Build](https://github.com/STP-KAS/groks-wallet#grok-build) ([TN10 page](https://tn10.kaspa.stream/addresses/kaspatest:qp4jge54eztxewf8r53rtjdvxakmatsu6tjd0nn9sjhgvzxknsfvjvmwurqhd)) and [Grok Bot](https://github.com/STP-KAS/groks-wallet#grok-bot) ([TN10 page](https://tn10.kaspa.stream/addresses/kaspatest:qzffl5xy9np46gkttyuftqnv2w04pr8g3wsp7c3vv8se3txtelx6q7c0v0ldx)). At 23:00 UTC the desk read the Build wallet at 3,612,867 tKAS and 15,944 coins of at least 2 tKAS. The Bot wallet is OK on stp's word. The box balance was not read from this desk.
 3. **Usage resets.** OK for the bots and for Build, per stp on 7 Oct 2026. This desk did not read the usage counters.
 4. **Box dry run and free disk.** Not done. The box's checklist. Not measured from this desk.
 5. **Share and plan lock.** The dry run held 734 tx/s at 4 processes, 97.9% of 750, so the default 25% share still fits that gate. The plan is not locked. Lock stays with stp before T0.
-6. **Desk clock and desk miners.** Start offset +73 ms at 23:00 UTC, under 100 ms. Desk miners during this pre-run: 0. The end offset waits until 09:02 UTC. The miner switch is the storm control step and has not been run.
+6. **Desk clock and desk miners.** Start offset +73 ms at 2026-10-06T23:00:16Z. At the stop, 2026-10-07T05:55:18Z, the desk was 407 ms ahead of a whole-second Date header, so the offset is inside one second. Desk miners during this pre-run: 0. The miner switch is the storm control step and has not been run.
 7. **Final OK on the start time.** Not given, and not a start-now. Earliest storm remains Fri 9 Oct 2026, 20:00 CEST, otherwise 13 Oct.
 
 ## Mainnet, the same night
