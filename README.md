@@ -104,9 +104,13 @@ The 20-second and 45-second runs above are the burst record. A hold has to keep 
 | Watcher muon blip | 2026-10-06T23:51:58.316Z | 2026-10-06T23:52:27.501Z | 29.2 s | 7,936 submits, 5,811 seen accepted. Stopped with the others. |
 | Two signers, fee 200 and 300 | 2026-10-06T23:53:27.326Z | 2026-10-07T05:54:53.185Z | 6 h 1 m 26 s | **2,210 tx/s submit, 2,207 tx/s seen accepted.** |
 
-### Fee 400 and the desk node, still open
+### Fee 400, the window is closed
 
-A 400/600 hold started at 2026-10-07T06:38:59Z and is still running until 2026-10-07T16:38:59Z. Depth 2. This is not a finished 10-hour total.
+The 400/600 hold was set for 2026-10-07T06:38:59Z to 2026-10-07T16:38:59Z. Depth 2. Twelve public lane signers. The per-second logs run from 2026-10-07T06:39:01.356Z to 2026-10-07T16:38:59.632Z, 9 h 59 m 58 s. The signers had exited by 17:19Z. This is the whole public clock.
+
+Those twelve logs sum to 24,040,746 submits and 9,812,395 seen accepts. Over the 35,998.276 s between the first and last line, that is **668 tx/s submit and 273 tx/s seen accepted**. Rejects were 23,942, about 0.10% of submits. One signer stopped its steady per-second log around 07:32Z and was not restarted. That file has 3,201 lines and its last line is 13:58:36Z. The order stream is not in these totals. The desk-node signers are not added.
+
+The accepts sit in the first part of the clock. From 06:39:01Z to 08:05:00Z the same logs are about **1,902 tx/s seen accepted** and about 1,942 tx/s submit. From 08:05:00Z to 16:38:59Z seen accepted is 0, and submit continues at about 455 tx/s. The public inclusion feed did not come back. This does not beat the six-hour 2,207. The 9 or 13 Oct long hold stays at fee 200 and 300.
 
 | Slice | First log | Last log | What it did |
 |---|---|---|---|
