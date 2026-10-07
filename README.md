@@ -12,6 +12,15 @@ The bot's own effort, and the joint report after the 9 or 13 Oct run, stay in [S
 
 Kaspa Testnet-10 only. Times below are UTC unless they say CEST. No transaction ids are in this repo.
 
+The other notes stay separate. The 9 or 13 Oct paste-in is [GROK-BUILD-PROMPT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/GROK-BUILD-PROMPT.md). The questions, the method, and the empty result sections are [tn10-storm-throughput-questions](https://github.com/STP-KAS/tn10-storm-throughput-questions). The 7 Oct included-rate tries are [tn10-build-desk-tps-3500](https://github.com/STP-KAS/tn10-build-desk-tps-3500). Why a signed payment stops near 3,080 is [what-limits-tx-rate](https://github.com/STP-KAS/what-limits-tx-rate).
+
+Runs on this page, oldest first:
+
+1. Short windows on 6 Oct: the throughput table, then the 20:57 UTC monitored hold, then the API check at about 21:12 UTC, then the high-fee run.
+2. Long holds from 21:22 UTC the same day: depth 8, the two shell starts, depth 2 with the feed stuck, depth 2 on five nodes, two signers through 05:54 UTC, the slices after that stop.
+3. The fee 400 window, 06:39–16:38 UTC on 7 Oct.
+4. A mainnet side reading from 22:41 UTC on 6 Oct, written at the end. It is not a TN10 run.
+
 ## What the desk measured
 
 Signed one-input one-output self-transfers. Fees are sompi per gram. 1× and 1.5× run in the same process, on even and odd lanes. Submit-OK means the node accepted the transaction into its mempool. Seen-accepted means the virtual chain of the node we were watching listed that transaction. Those are different clocks.
@@ -49,7 +58,7 @@ Blocks kept arriving at about 8–10 per second, with one second at 21. The netw
 
 ## API up, Kaspa.stream is a different path
 
-Checked 6 Oct 2026, about 23:12 CEST.
+Checked 6 Oct 2026, about 23:12 CEST (21:12 UTC). That sits after the 20:57 UTC hold and before the depth-8 hold at 21:22 UTC.
 
 **api-tn10.kaspa.org is up, and it is following the chain.** A cache-busting `GET /info/health` returned HTTP 200. The database was synced, `acceptedTxBlockTimeDiff` was 2 seconds, and `blueScoreDiff` was 16. The kaspad behind that health check was 2.1.0, synced, with a UTXO index. `GET /info/blockdag` answered for `kaspa-testnet-10`. `GET /info/hashrate` answered. `GET /info/kaspad` answered: synced, UTXO index on, mempool size 4, server version 2.0.1. That mempool is the API's own node. It is not the mempool of the public nodes the desk was sending to. At the same time those nodes still showed mempools from about 16,000 (vector-10) to about 72,000 (proton-10, electron-10, quark-10, neutrino-10), and their wRPC fee estimate was about 857 sompi/gram.
 
@@ -91,7 +100,7 @@ This desk run is not the 9 or 13 Oct combo. The bot and Build stay separate unti
 
 ## Long holds, 6-7 Oct 2026
 
-The 20-second and 45-second runs above are the burst record. A hold has to keep submitting after the pipe fills. Every run below has the first and last per-second log line in UTC. Rates are submits, or seen accepts, divided by that wall time. Same signed one-input one-output. Desk miners: 0. The fee cap stayed 600. Stopped on request at 2026-10-07T05:54:55Z, before the 09:02 UTC deadline.
+The 20-second and 45-second runs above are the burst record. A hold has to keep submitting after the pipe fills. Every run below has the first and last per-second log line in UTC. Rates are submits, or seen accepts, divided by that wall time. Same signed one-input one-output. Desk miners: 0. The fee cap stayed 600. The runs through 2026-10-07T05:54:55Z were stopped on request, before the 09:02 UTC deadline. The fee 400 window is the last row. The sections under the table follow this same order.
 
 | Run | First log | Last log | Wall | What it did |
 |---|---|---|---|---|
@@ -103,22 +112,7 @@ The 20-second and 45-second runs above are the burst record. A hold has to keep 
 | Depth 2, five nodes | 2026-10-06T23:12:22.136Z | 2026-10-06T23:52:27.579Z | 40 m 5 s | 1,655 tx/s submit, 1,641 tx/s seen accepted. |
 | Watcher muon blip | 2026-10-06T23:51:58.316Z | 2026-10-06T23:52:27.501Z | 29.2 s | 7,936 submits, 5,811 seen accepted. Stopped with the others. |
 | Two signers, fee 200 and 300 | 2026-10-06T23:53:27.326Z | 2026-10-07T05:54:53.185Z | 6 h 1 m 26 s | **2,210 tx/s submit, 2,207 tx/s seen accepted.** |
-
-### Fee 400, the window is closed
-
-The 400/600 hold was set for 2026-10-07T06:38:59Z to 2026-10-07T16:38:59Z. Depth 2. Twelve public lane signers. The per-second logs run from 2026-10-07T06:39:01.356Z to 2026-10-07T16:38:59.632Z, 9 h 59 m 58 s. The signers had exited by 17:19Z. This is the whole public clock.
-
-Those twelve logs sum to 24,040,746 submits and 9,812,395 seen accepts. Over the 35,998.276 s between the first and last line, that is **668 tx/s submit and 273 tx/s seen accepted**. Rejects were 23,942, about 0.10% of submits. One signer stopped its steady per-second log around 07:32Z and was not restarted. That file has 3,201 lines and its last line is 13:58:36Z. The order stream is not in these totals. The desk-node signers are not added.
-
-The accepts sit in the first part of the clock. From 06:39:01Z to 08:05:00Z the same logs are about **1,902 tx/s seen accepted** and about 1,942 tx/s submit. From 08:05:00Z to 16:38:59Z seen accepted is 0, and submit continues at about 455 tx/s. The public inclusion feed did not come back. This does not beat the six-hour 2,207. The 9 or 13 Oct long hold stays at fee 200 and 300.
-
-| Slice | First log | Last log | What it did |
-|---|---|---|---|
-| Public signers, before the desk node | 2026-10-07T07:20:00Z | 2026-10-07T07:58:00Z | **2,159 tx/s submit, 2,158 tx/s seen accepted.** Under the six-hour 2,207. One signer had exited at 07:32:20Z and was not restarted. |
-| Desk node, four signers | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | **1,538 tx/s submit and the same seen accepted**, 0 rejects, lanes two deep. |
-| Public feeds after that minute | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | Seen accepted fell to 0. Submit dripped at about 430 tx/s. Those two numbers are not added together. |
-
-At 2026-10-07T08:07Z the desk node recorded about 305 transactions per block and compute mass about 498,000 of 500,000. That is the inclusion ceiling for this 1,624-gram transaction, about 3,050 tx/s. The six public hostnames were three machines that morning. The 9 or 13 Oct long hold keeps fee 200 and 300, uses two signers per physical machine, and adds the synced desk node. The plan note is in the questions repo.
+| Fee 400 and 600 | 2026-10-07T06:39:01.356Z | 2026-10-07T16:38:59.632Z | 9 h 59 m 58 s | **668 tx/s submit, 273 tx/s seen accepted.** Seen accepted is 0 after 08:05Z. |
 
 ### Depth 8, 2026-10-06T21:22:15.436Z to 2026-10-06T22:53:03.590Z
 
@@ -211,7 +205,23 @@ Why. The six-hour hold included 2,207 plain one-input one-output transfers per s
 
 The mempool count stayed high through this. At 2026-10-07T06:11:31Z the highest public mempool was 52,530. At 2026-10-07T06:27:46Z it was 49,141, still falling by only a few per second. A vector-10 fee read at 2026-10-07T06:28Z was about 162 and 131 sompi per gram in the normal buckets, and about 243 in the priority bucket. During the hold the normal quote was about 186–194 and the priority quote was about 876. The 06:09Z slice was about 1.5 user transactions per block while that count was still near 50,900. The count is the wrong instrument for "is the next block full."
 
-This is TN10. The mainnet hour the same night is in the section below. The builder view is point 9 of the [early recommendations](https://github.com/STP-KAS/tn10-storm-throughput-questions#early-recommendations-for-builders).
+This is TN10. The mainnet hour the same night is in the section below. That reading is 22:41 UTC on 6 Oct, during the depth-8 window, and it stays at the end because it is not a TN10 run. The builder view is point 9 of the [early recommendations](https://github.com/STP-KAS/tn10-storm-throughput-questions#early-recommendations-for-builders).
+
+### Fee 400, the window is closed
+
+The 400/600 hold was set for 2026-10-07T06:38:59Z to 2026-10-07T16:38:59Z. Depth 2. Twelve public lane signers. The per-second logs run from 2026-10-07T06:39:01.356Z to 2026-10-07T16:38:59.632Z, 9 h 59 m 58 s. The signers had exited by 17:19Z. This is the whole public clock.
+
+Those twelve logs sum to 24,040,746 submits and 9,812,395 seen accepts. Over the 35,998.276 s between the first and last line, that is **668 tx/s submit and 273 tx/s seen accepted**. Rejects were 23,942, about 0.10% of submits. One signer stopped its steady per-second log around 07:32Z and was not restarted. That file has 3,201 lines and its last line is 13:58:36Z. The order stream is not in these totals. The desk-node signers are not added.
+
+The accepts sit in the first part of the clock. From 06:39:01Z to 08:05:00Z the same logs are about **1,902 tx/s seen accepted** and about 1,942 tx/s submit. From 08:05:00Z to 16:38:59Z seen accepted is 0, and submit continues at about 455 tx/s. The public inclusion feed did not come back. This does not beat the six-hour 2,207. The 9 or 13 Oct long hold stays at fee 200 and 300.
+
+| Slice | First log | Last log | What it did |
+|---|---|---|---|
+| Public signers, before the desk node | 2026-10-07T07:20:00Z | 2026-10-07T07:58:00Z | **2,159 tx/s submit, 2,158 tx/s seen accepted.** Under the six-hour 2,207. One signer had exited at 07:32:20Z and was not restarted. |
+| Desk node, four signers | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | **1,538 tx/s submit and the same seen accepted**, 0 rejects, lanes two deep. |
+| Public feeds after that minute | 2026-10-07T07:59:00Z | 2026-10-07T08:03:33Z | Seen accepted fell to 0. Submit dripped at about 430 tx/s. Those two numbers are not added together. |
+
+At 2026-10-07T08:07Z the desk node recorded about 305 transactions per block and compute mass about 498,000 of 500,000. That is the inclusion ceiling for this 1,624-gram transaction, about 3,050 tx/s. The six public hostnames were three machines that morning. The 9 or 13 Oct long hold keeps fee 200 and 300, uses two signers per physical machine, and adds the synced desk node. The plan note is in the questions repo.
 
 ## Saved for the 9 Oct test
 
@@ -233,7 +243,7 @@ These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-
 
 Read because the desk was asked to watch mainnet congestion and the covenant hour on Kaspa.stream. Deliberate load stayed on TN10.
 
-Mainnet was quiet. At about 00:41 CEST on 7 Oct the rendered [kaspa.stream](https://kaspa.stream/) homepage showed TPS 11.1 (1h average 10.4), BPS 10.6 (1h average 9.6), mempool 1, hashrate 300.5 PH/s, 29,412 transactions in the last hour, and 810 active addresses in the last hour. A direct `GET https://api.kaspa.org/info/fee-estimate` in the same hour returned 100 sompi/gram in every bucket. `GET https://api.kaspa.org/info/health` was synced, accepted-tx lag 3 seconds. That is not a congested hour.
+Mainnet was quiet. At about 00:41 CEST on 7 Oct (22:41 UTC on 6 Oct) the rendered [kaspa.stream](https://kaspa.stream/) homepage showed TPS 11.1 (1h average 10.4), BPS 10.6 (1h average 9.6), mempool 1, hashrate 300.5 PH/s, 29,412 transactions in the last hour, and 810 active addresses in the last hour. A direct `GET https://api.kaspa.org/info/fee-estimate` in the same hour returned 100 sompi/gram in every bucket. `GET https://api.kaspa.org/info/health` was synced, accepted-tx lag 3 seconds. That is not a congested hour.
 
 The same homepage's last-hour covenant board:
 
