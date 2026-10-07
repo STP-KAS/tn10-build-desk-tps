@@ -211,7 +211,7 @@ This is TN10. The mainnet hour the same night is in the section below. The build
 
 ## Saved for the 9 Oct test
 
-The shape that held is in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). The test-day steps are in [plan/TESTDAY.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/TESTDAY.md). Starting that prompt on test day is the run. Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300. The fee cap stays 600. That note does not start the storm.
+The shape that held is in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). The test-day steps are in [plan/TESTDAY.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/TESTDAY.md). The paste-in prompt is [plan/GROK-BUILD-PROMPT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/GROK-BUILD-PROMPT.md). Starting that prompt on test day is the run. Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300, plus the synced desk node on that long hold and on the uncapped max. The fee cap stays 600. When the storm GO is given, the run takes 2 hours 55 minutes from T0. The plan puts T0 at about 18:15 UTC and the last baseline at about 21:10 UTC. The same clock is 13 Oct if 9 Oct is not ready. Earliest start is 18:00 UTC. That note does not start the storm.
 
 ## Tasks for stp, from this desk
 
@@ -223,7 +223,7 @@ These are the tasks in [tn10-storm-throughput-questions](https://github.com/STP-
 4. **Box dry run and free disk.** Not done. The box's checklist. Not measured from this desk.
 5. **Share and plan lock.** The dry run held 734 tx/s at 4 processes, 97.9% of 750, so the default 25% share still fits that gate. The plan is not locked. Lock stays with stp before T0.
 6. **Desk clock and desk miners.** Start offset +73 ms at 2026-10-06T23:00:16Z. At the stop, 2026-10-07T05:55:18Z, the desk was 407 ms ahead of a whole-second Date header, so the offset is inside one second. Desk miners during this pre-run: 0. The miner switch is the storm control step and has not been run.
-7. **Final OK on the start time.** Not given, and not a start-now. Earliest storm remains Fri 9 Oct 2026, 20:00 CEST, otherwise 13 Oct.
+7. **Final OK on the start time.** Not given, and not a start-now. Earliest storm remains Fri 9 Oct 2026, 18:00 UTC, otherwise 13 Oct from 18:00 UTC. When GO is given the run takes 2 hours 55 minutes.
 
 ## Mainnet, the same night
 
