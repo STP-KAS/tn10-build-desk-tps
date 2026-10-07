@@ -171,6 +171,26 @@ The ordered stream, 2026-10-06T23:53:26.324Z to 2026-10-07T05:54:52.833Z, submit
 
 At 2026-10-07T05:55:18Z the desk clock was 407 ms ahead of the Date header from `https://www.microsoft.com`. That header is whole seconds, so the offset is inside one second.
 
+### After the stop
+
+The senders stopped at 2026-10-07T05:54:55Z. Covenant activity on TN10 is gaining traction again. The covenant apps did not change. The plain transfers stopped taking the block.
+
+Three slices from `https://api-tn10.kaspa.org`, 40 selected-chain blocks each, coinbase left out. A covenant transaction is one with a covenant on an output. The two times are the ends of that walk. A few seconds is not an hour rate. This desk's render of the TN10 homepage left the last-hour Covenants card empty, so the figures are these blocks.
+
+| When | Earlier end | Later end | User txs | Covenant txs | Covenant outputs | User txs per block |
+|---|---|---|---:|---:|---:|---:|
+| During the hold | 2026-10-07T02:59:49Z | 2026-10-07T02:59:58Z | 12,218 | 3 | 4 | about 305 |
+| 15 min after the stop | 2026-10-07T06:09:38Z | 2026-10-07T06:09:43Z | 61 | 3 | 8 | about 1.5 |
+| 22 min after the stop | 2026-10-07T06:17:11Z | 2026-10-07T06:17:19Z | 279 | 7 | 26 | about 7 |
+
+During the hold the slice held 12,218 user transactions, 3 of them covenant, about 305 per block. Fifteen minutes after the stop the same kind of slice held 61 user transactions, 3 of them covenant. Twenty-two minutes after, it held 279 user transactions, 7 of them covenant. The plain flood had left the blocks. Covenant transactions were being included in the room that opened.
+
+Why. The six-hour hold included 2,207 plain one-input one-output transfers per second, about 1,624 grams each, at 200 and 300 sompi per gram. About 3,080 of those fill a 500,000-gram block at 10 blocks per second. The hold was most of that mass. Miners order by fee per gram. A covenant step often weighs more, so it needs a higher total fee to stand level with a 1,624-gram transfer at 200 or 300. A step that stays near the quiet floor waits. The next covenant step is spent from the previous output, so one waiting step stops the flow, and the covenant lane looks idle. After the stop, a block has room, the waiting step is included, and the app posts the next step. That second step is the traction. It shows up because the flood stopped, not because the covenant program sped up.
+
+The mempool count stayed high through this. At 2026-10-07T06:11:31Z the highest public mempool was 52,530. At 2026-10-07T06:27:46Z it was 49,141, still falling by only a few per second. A vector-10 fee read at 2026-10-07T06:28Z was about 162 and 131 sompi per gram in the normal buckets, and about 243 in the priority bucket. During the hold the normal quote was about 186–194 and the priority quote was about 876. The 06:09Z slice was about 1.5 user transactions per block while that count was still near 50,900. The count is the wrong instrument for "is the next block full."
+
+This is TN10. The mainnet hour the same night is in the section below. The builder view is point 9 of the [early recommendations](https://github.com/STP-KAS/tn10-storm-throughput-questions#early-recommendations-for-builders).
+
 ## Saved for the 9 Oct test
 
 The shape that held is in [plan/DESK-SHAPE-9-OCT.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/DESK-SHAPE-9-OCT.md). The test-day steps are in [plan/TESTDAY.md](https://github.com/STP-KAS/tn10-storm-throughput-questions/blob/main/plan/TESTDAY.md). Starting that prompt on test day is the run. Paced steps stay at 4 processes, depth 2, in-flight 48. The long hold and the uncapped max step use two signers on each public node, depth 2, in-flight 64, and a fee frozen at 200 and 300. The fee cap stays 600. That note does not start the storm.
